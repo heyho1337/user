@@ -1,0 +1,29 @@
+{
+    "name": "heyhodesigns/user",
+    "description": "symfony user bundle by heyhodesigns",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Heyhodesigns\\User\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "heyhodesigns",
+            "email": "heyho1337@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "symfony/framework-bundle": "^7.0"
+    },
+    "extra": {
+        "symfony": {
+            "endpoint": [
+                "flex://defaults",
+                "https://raw.githubusercontent.com/heyho1337/user-recipe/main/index.json"
+            ]
+        }
+    }
+}
