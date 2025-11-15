@@ -21,7 +21,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
@@ -37,20 +37,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $updated_at = null;
+    private ?\DateTimeImmutable $modified_at = null;
 
     #[ORM\Column]
     private ?bool $verified = null;
 
-    /**
-     * @var Collection<int, Setup>
-     */
-    #[ORM\OneToMany(targetEntity: Setup::class, mappedBy: 'user')]
-    private Collection $setup;
-
     public function __construct()
     {
-        $this->setup = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -118,14 +112,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getModifiedAt(): ?\DateTimeImmutable
     {
-        return $this->updated_at;
+        return $this->modified_at;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updated_at): static
+    public function setModifiedAt(\DateTimeImmutable $modified_at): static
     {
-        $this->updated_at = $updated_at;
+        $this->modified_at = $modified_at;
 
         return $this;
     }
@@ -164,36 +158,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Setup>
-     */
-    public function getSetup(): Collection
-    {
-        return $this->setup;
-    }
-
-    public function addSetup(Setup $setup): static
-    {
-        if (!$this->setup->contains($setup)) {
-            $this->setup->add($setup);
-            $setup->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSetup(Setup $setup): static
-    {
-        if ($this->setup->removeElement($setup)) {
-            // set the owning side to null (unless already changed)
-            if ($setup->getUser() === $this) {
-                $setup->setUser(null);
-            }
-        }
 
         return $this;
     }
